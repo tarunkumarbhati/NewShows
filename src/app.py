@@ -238,7 +238,3 @@ def home(genre = 'comedy'):
                            release_dates=new_dates,
                            ratings=new_ratings,
                            poster_links=new_poster_links)
-
-if __name__=='__main__':
-    app.debug = True
-    app.run()
