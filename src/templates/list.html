@@ -26,7 +26,8 @@
               <br>
               <br>
                <br>
-           Watch a new show. All details you need in one place.
+           <b> Watch a new show. All details you need in one place.</b>
+             <br> (Note:If the site is taking too much time to load, it means it is updating the database. Please wait.)
 
           <h2 class="sub-header">{{current_genre}}</h2>
           <div class="table-responsive">
@@ -37,12 +38,29 @@
               <tbody>
               {% for i in range (0,30) %}
                 <tr>
+                    {% if elements[i] is none %}
+                      {% else %}
+
                    <td>{{i+1}}.</td>
-                  <td> <img src={{poster_links[i]}}></td>
-                  <td><b><a href={{trailer_links[i]}} target="_blank"> {{elements[i]}} </a>  </b><br>
-                       <a href={{trailer_links[i]}} target="_blank">Trailer</a>   Release Date: {{release_dates[i]}}</td>
-                  <td><a href={{g_link}}+{{elements[i].replace(" ", "+").replace("&", "and")}} target="_blank">Search on Google</a></td>
-                  <td><b>IMDB{{ratings[i]}} </b> </td>
+                  <td>
+                      <img src={{poster_links[i]}}>
+
+                  </td>
+                  <td>
+                      <b><a href={{trailer_links[i]}} target="_blank"> {{elements[i]}} </a>  </b><br>
+                       <a href={{trailer_links[i]}} target="_blank">Trailer</a>   Release Date: {{release_dates[i]}}
+
+                  </td>
+                  <td>
+
+                      <a href={{g_link}}+{{elements[i].replace(" ", "+").replace("&", "and")}} target="_blank">Search on Google</a>
+
+                  </td>
+                  <td>
+                      <b>IMDB{{ratings[i]}} </b>
+
+                  </td>
+                    {% endif %}
                 </tr>
               {% endfor %}
               </tbody>

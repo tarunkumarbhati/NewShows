@@ -36,21 +36,24 @@ def find_ratings(elements):
     rating=[None]*30
     i=0
     for element in elements:
+        if element is not None:
+            request = requests.get(google_search_link.format(element.replace(" ","+").replace("&","and")), headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko)"})
 
-        request = requests.get(google_search_link.format(element.replace(" ","+").replace("&","and")), headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko)"})
-
-        content = request.content
-        #print(content)
-        soup = BeautifulSoup(content, "html.parser")
-        #print(soup.prettify())
-        #<div class="f slp">
-        ratings=soup.find('div',{'class':'f slp'})
-        #print(ratings)
-        if ratings is not None:
-            rating[i]=ratings.text
+            content = request.content
+            #print(content)
+            soup = BeautifulSoup(content, "html.parser")
+            #print(soup.prettify())
+            #<div class="f slp">
+            ratings=soup.find('div',{'class':'f slp'})
+            #print(ratings)
+            if ratings is not None:
+                rating[i]=ratings.text
+            else:
+                rating[i]=" NA"
+            i=i+1
         else:
             rating[i]=" NA"
-        i=i+1
+            i=i+1
     return rating
 
 youtube_link="https://www.youtube.com/results?search_query={}"
@@ -58,17 +61,21 @@ def find_trailer_link(elements):
     trailer_link=[None]*30
     i = 0
     for element in elements:
-        request = requests.get(youtube_link.format(element.replace(" ", "+").replace("&", "and")), headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko)"})
-        content = request.content
-        soup = BeautifulSoup(content, "html.parser")
+        if element is not None:
+            request = requests.get(youtube_link.format(element.replace(" ", "+").replace("&", "and")), headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko)"})
+            content = request.content
+            soup = BeautifulSoup(content, "html.parser")
 
-        #< h3 class ="yt-lockup-title contains-action-menu" >
-        link_container=soup.find('h3', {'class':'yt-lockup-title'})
+            #< h3 class ="yt-lockup-title contains-action-menu" >
+            link_container=soup.find('h3', {'class':'yt-lockup-title'})
 
-        link=link_container.find('a')
-        part=link.get('href')
-        trailer_link[i]="https://www.youtube.com"+part
-        i=i+1
+            link=link_container.find('a')
+            part=link.get('href')
+            trailer_link[i]="https://www.youtube.com"+part
+            i=i+1
+        else:
+            trailer_link[i] = " #"
+            i = i + 1
     return trailer_link
 
 
@@ -121,7 +128,7 @@ def update_database(genre):
     show = Show(None, None, None, None, None)
     page_no = 0
     titles = show_title(genre, page_no)
-    #print(titles)
+    print(titles)
     ratings=find_ratings(titles)
     #print(ratings)
     trailers=find_trailer_link(titles)
