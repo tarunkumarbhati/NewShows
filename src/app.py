@@ -123,7 +123,7 @@ def show_poster_link(genre, page_no):
     return poster_link
 
 def update_database(genre):
-    Database.remove_all(genre)
+
 
     show = Show(None, None, None, None, None)
     page_no = 0
@@ -193,16 +193,17 @@ def home(genre = 'comedy'):
 
 
 
-    date=Database.find_coloumn(genre+'_last_updated','last_updated_date')
+    #date=Database.find_coloumn(genre+'_last_updated','last_updated_date')
 
 
-    if Database.count_all(genre+'_last_updated') > 0:
-        if date[0]['last_updated_date']!=str(datetime.date.today()):
-            update_database(genre)
-    else:
-        update_database(genre)
+    #if Database.count_all(genre+'_last_updated') > 0:
+    #    if date[0]['last_updated_date']!=str(datetime.date.today()):
+    #       update_database(genre)
+    #else:
+    #    update_database(genre)
 
     #update_database(genre)
+    print("Site Visited")
     t=Database.find_coloumn(genre,"title")
     new_title=[None]*30
     new_trailer = [None] * 30
