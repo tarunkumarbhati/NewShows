@@ -5,4 +5,3 @@ hosted on: http://newshows.herokuapp.com/
 
 
 Made using Flask and MongoDB.
-I am just a learner.
