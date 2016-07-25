@@ -1,5 +1,5 @@
 # NewShows
-Shows the list of new shows by their genres
+Shows the details of new shows by their genres
 
 hosted on: http://newshows.herokuapp.com/
 
